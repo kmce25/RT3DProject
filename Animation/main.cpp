@@ -46,19 +46,55 @@ GLuint md2VertCount4 = 0;
 GLuint md2VertCount5 = 0;
 GLuint md2VertCount6 = 0;
 GLuint md2VertCount7 = 0;
-GLuint meshObjects[5];
+GLuint md2VertCount8 = 0;
+GLuint md2VertCount9 = 0;
+GLuint md2VertCount10 = 0;
+GLuint md2VertCount11 = 0;
+GLuint md2VertCount12 = 0;
+GLuint md2VertCount13 = 0;
+GLuint md2VertCount14 = 0;
+GLuint md2VertCount15 = 0;
+GLuint md2VertCount16 = 0;
+GLuint md2VertCount17 = 0;
+GLuint md2VertCount18 = 0;
+GLuint md2VertCount19 = 0;
+
+
+GLuint meshObjects[15];
 GLuint shaderProgram;
 std::vector<Entity> entities;
 float windowWidth = 800.0f, windowHeight = 600.0f;
 
 /// MD2 ///
 md2model carModel;
+md2model roadModel;
+md2model roadModel2;
 md2model goblinModel;
 md2model building1Model;
 md2model building2Model;
+md2model building3Model;
+md2model building4Model;
+md2model building5Model;
+md2model building6Model;
+md2model building7Model;
+md2model building8Model;
+md2model building9Model;
+md2model building10Model;
+md2model building11Model;
+md2model building12Model;
+md2model building13Model;
+md2model building14Model;
+md2model building15Model;
+md2model building16Model;
+md2model building17Model;
+md2model rock;
+md2model rock2;
+md2model bush;
+
+
 
 /// TEXTURES & MATERIALS ///
-GLuint textures[3];
+GLuint textures[17];
 
 rt3d::materialStruct material0 = {
 	{ 0.2f, 0.4f, 0.2f, 1.0f }, // ambient
@@ -272,31 +308,57 @@ void init(void) {
 	meshObjects[2] = goblinModel.ReadMD2Model("tris.MD2");
 	md2VertCount2 = goblinModel.getVertDataCount();
 	entities.push_back(Entity(glm::vec3(5.0f, 1.2f, -5.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(90.0f, 0.0f, 0.0f), textures[2], meshObjects[2], md2VertCount2, material1, true, false));
-
-
+	
 	textures[4] = loadBitmap("./Resources/textures/Building/Building1Texture1.bmp");
 	meshObjects[4] = building1Model.ReadMD2Model("./Resources/md2models/Buildings/SmallBuilding.MD2");
 	md2VertCount4 = building1Model.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(10.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-28.0f, 0.0f, 22.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
+	entities.push_back(Entity(glm::vec3(20.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
+	entities.push_back(Entity(glm::vec3(10.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
 
-	textures[7] = loadBitmap("./Resources/textures/Building/houseblendTexture.bmp");
+	textures[7] = loadBitmap("./Resources/textures/Building/Building3Texture.bmp");
 	meshObjects[7] = building2Model.ReadMD2Model("./Resources/md2models/Buildings/Building.MD2");
 	md2VertCount7 = building2Model.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(40.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-20.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
+	entities.push_back(Entity(glm::vec3(0.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
+	entities.push_back(Entity(glm::vec3(10.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
 
+	textures[8] = loadBitmap("./Resources/textures/Building/BuildingCatTexture.bmp");
+	meshObjects[8] = building2Model.ReadMD2Model("./Resources/md2models/Buildings/Building.MD2");
+	md2VertCount8 = building2Model.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(-10.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
+	entities.push_back(Entity(glm::vec3(0.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
+	entities.push_back(Entity(glm::vec3(20.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
 
-	/*textures[5] = loadBitmap("./Resources/textures/Building/BuildingCatTexture.bmp");
-	meshObjects[5] = building1Model.ReadMD2Model("./Resources/md2models/Buildings/SmallBuilding.MD2");
-	md2VertCount5 = building1Model.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(5.0f, 1.2f, -5.0f), glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(180.0f, 0.0f, 0.0f), textures[5], meshObjects[5], md2VertCount5, material1, true, false));*/
+	textures[16] = loadBitmap("./Resources/textures/Scenery/RockTexture.bmp");
+	meshObjects[16] = roadModel.ReadMD2Model("./Resources/md2models/Road.MD2");
+	md2VertCount16 = roadModel.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(0.0f, -0.075, 22.0f), glm::vec3(10.0f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[16], meshObjects[16], md2VertCount16, material1, true, false));
 
-	/*textures[6] = loadBitmap("./Resources/textures/Building/Building3Texture.bmp");
-	meshObjects[6] = building2Model.ReadMD2Model("./Resources/md2models/Buildings/Building.MD2");
-	md2VertCount6 = building2Model.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(5.0f, 1.2f, -5.0f), glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(180.0f, 0.0f, 0.0f), textures[6], meshObjects[6], md2VertCount6, material1, true, false));*/
+	textures[17] = loadBitmap("./Resources/textures/Scenery/RockTexture.bmp");
+	meshObjects[17] = roadModel2.ReadMD2Model("./Resources/md2models/Road.MD2");
+	md2VertCount17 = roadModel2.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(-10.0f, -0.075, 10.0f), glm::vec3(2.0f, 1.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[17], meshObjects[17], md2VertCount17, material1, true, false));
 
-
-
+	/*textures[18] = loadBitmap("./Resources/textures/Scenery/Rock.bmp");
+	meshObjects[18] = rock2.ReadMD2Model("./Resources/md2models/scenery/Rock2.MD2");
+	md2VertCount18 = rock2.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(-23.0, 0.5, 16.5f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[18], meshObjects[18], md2VertCount18, material1, true, false));
+*/
+	textures[19] = loadBitmap("./Resources/textures/Scenery/BushTexture.bmp");
+	meshObjects[19] = bush.ReadMD2Model("./Resources/md2models/scenery/Bush.MD2");
+	md2VertCount19 = bush.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 26.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 24.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 22.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 20.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 18.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-25.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-23.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-21.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 40.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-19.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(10.0f, 30.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-17.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 90.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-15.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 90.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
@@ -405,7 +467,7 @@ void draw(SDL_Window * window) {
 	glClear(GL_COLOR_BUFFER_BIT  | GL_DEPTH_BUFFER_BIT);
 
 	glm::mat4 projection(1.0);
-	projection = glm::perspective(float(60.0f*DEG_TO_RADIAN),windowWidth/windowHeight,1.0f,50.0f);
+	projection = glm::perspective(float(60.0f*DEG_TO_RADIAN),windowWidth/windowHeight,1.0f,80.0f);
 	rt3d::setUniformMatrix4fv(shaderProgram, "projection", glm::value_ptr(projection));
 
 	GLfloat scale(1.0f); // Allow easy scaling of complete scene
@@ -443,6 +505,8 @@ void draw(SDL_Window * window) {
 	glm::vec4 playerCarLightPos(playerCarPos.x, playerCarPos.y + 1.0, playerCarPos.z, 1.0f);
 	playerCarLightPos = playerCarLightPos*mvStack.top();
 	rt3d::setLightPos(shaderProgram, glm::value_ptr(playerCarLightPos));
+
+
 
 	glDepthMask(GL_TRUE); // make sure depth test is on
 						  
