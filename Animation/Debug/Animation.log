@@ -1,1 +1,13 @@
-﻿  Animation.vcxproj -> C:\Users\k_mce\Desktop\RT3DProject\MD2 Animation\Debug\Animation.exe
+﻿  main.cpp
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\md2model.h(40): warning C4005: 'WIN32': macro redefinition
+  c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\md2model.h(40): note: command-line arguments:  see previous definition of 'WIN32'
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(163): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(384): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(385): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(436): warning C4018: '<': signed/unsigned mismatch
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(518): warning C4018: '<': signed/unsigned mismatch
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(536): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(536): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(559): warning C4018: '<': signed/unsigned mismatch
+c:\users\k_mce\desktop\rt3dproject\md2 animation\animation\main.cpp(565): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+  Animation.vcxproj -> C:\Users\k_mce\Desktop\RT3DProject\MD2 Animation\Debug\Animation.exe
