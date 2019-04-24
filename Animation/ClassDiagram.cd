@@ -1,0 +1,599 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Audio">
+    <Position X="36.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEEAAAEAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Audio.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entity">
+    <Position X="34.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAAAAAAAAAAgAAAACAIAQCAAAEgiAAAAAAAABICAA=</HashCode>
+      <FileName>Entity.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="rt3d::vaoBuffers">
+    <Position X="26" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAgABAAAAEAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>rt3d.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="rt3d::position">
+    <Position X="24.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAQAAAAA=</HashCode>
+      <FileName>rt3dObjLoader.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="rt3d::faceIndex">
+    <Position X="27.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBQAAAAAAAA=</HashCode>
+      <FileName>rt3dObjLoader.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="rt3d::lightStruct">
+    <Position X="29.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAIAIAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>rt3d.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="rt3d::materialStruct">
+    <Position X="31.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>rt3d.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_1" Collapsed="true">
+    <Position X="23.5" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_2" Collapsed="true">
+    <Position X="22.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQBCAAIAECAAAEAQAAAQAAAAAAAAAAAAAAAgBAAAY=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_3" Collapsed="true">
+    <Position X="11.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAEAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAQ=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_4" Collapsed="true">
+    <Position X="22.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEKACoAQEAAAAAEABAAAAAAAAAAAAAADAAIACCgQ=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_5" Collapsed="true">
+    <Position X="22.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBAgAAEAAAAAAAAAAAABABAQAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_6" Collapsed="true">
+    <Position X="22.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAAAABAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_7" Collapsed="true">
+    <Position X="19.5" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BASS_3DVECTOR">
+    <Position X="33" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAABgAQAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_9" Collapsed="true">
+    <Position X="15.5" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAGAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_10" Collapsed="true">
+    <Position X="7.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAQAAAAAAAAAAAgAACAAAAAAAIAAAAAAAAAgA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_11" Collapsed="true">
+    <Position X="11.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAEAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_12" Collapsed="true">
+    <Position X="3.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAEAAAAABggAIAAAAAQAAAAAAAAAAAAAAABACAAgAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_13" Collapsed="true">
+    <Position X="18.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_14" Collapsed="true">
+    <Position X="18.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAgAAAAoAAEAAAAQAAAQgIKAgIAAAAQAAgEAACAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_15" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAEAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="tWAVEFORMATEX" Collapsed="true">
+    <Position X="3.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAACAgAABAAAAAAAAAAIAAAQAAAAAQAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_17" Collapsed="true">
+    <Position X="18.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAABAAgAAAAAAABAAAAAAAAAAQAACAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_18" Collapsed="true">
+    <Position X="7.5" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAQAAAABAAAAAACAgEAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_19" Collapsed="true">
+    <Position X="14.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAACAAAAIAAAkAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_20" Collapsed="true">
+    <Position X="14.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_21" Collapsed="true">
+    <Position X="14.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAACAAAABAAgAAAAAAABAAAAAAAAAAQAACAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_22" Collapsed="true">
+    <Position X="3.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_23" Collapsed="true">
+    <Position X="10.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEAAAAIAAABSAAAgAAAAAAAoAACAAAAAABAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_24" Collapsed="true">
+    <Position X="11.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAgA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="__unnamed_struct_0004_25" Collapsed="true">
+    <Position X="10.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAACMAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="QWORD" Collapsed="true">
+    <Position X="27.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BYTE" Collapsed="true">
+    <Position X="27.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="WORD" Collapsed="true">
+    <Position X="27.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DWORD" Collapsed="true">
+    <Position X="4.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BOOL" Collapsed="true">
+    <Position X="26" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HMUSIC" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HSAMPLE" Collapsed="true">
+    <Position X="7.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HCHANNEL" Collapsed="true">
+    <Position X="7.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HSTREAM" Collapsed="true">
+    <Position X="1.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HRECORD" Collapsed="true">
+    <Position X="1.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HSYNC" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HDSP" Collapsed="true">
+    <Position X="1.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HFX" Collapsed="true">
+    <Position X="4.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="HPLUGIN" Collapsed="true">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DEVICEINFO" Collapsed="true">
+    <Position X="23.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_INFO" Collapsed="true">
+    <Position X="22.5" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_RECORDINFO" Collapsed="true">
+    <Position X="11.5" Y="24.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_SAMPLE" Collapsed="true">
+    <Position X="22.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_CHANNELINFO" Collapsed="true">
+    <Position X="22.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_PLUGINFORM" Collapsed="true">
+    <Position X="22.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_PLUGININFO" Collapsed="true">
+    <Position X="19.5" Y="23.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="STREAMPROC" Collapsed="true">
+    <Position X="31.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="FILECLOSEPROC" Collapsed="true">
+    <Position X="26" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="FILELENPROC" Collapsed="true">
+    <Position X="27.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="FILEREADPROC" Collapsed="true">
+    <Position X="29.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="FILESEEKPROC" Collapsed="true">
+    <Position X="31.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_FILEPROCS" Collapsed="true">
+    <Position X="15.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DOWNLOADPROC" Collapsed="true">
+    <Position X="29.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="SYNCPROC" Collapsed="true">
+    <Position X="26" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DSPPROC" Collapsed="true">
+    <Position X="31.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="RECORDPROC" Collapsed="true">
+    <Position X="29.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TAG_ID3" Collapsed="true">
+    <Position X="7.5" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TAG_APE_BINARY" Collapsed="true">
+    <Position X="11.5" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TAG_BEXT" Collapsed="true">
+    <Position X="3.5" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TAG_CART_TIMER" Collapsed="true">
+    <Position X="18.5" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TAG_CART" Collapsed="true">
+    <Position X="18.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="TAG_CA_CODEC" Collapsed="true">
+    <Position X="18.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="WAVEFORMATEX" Collapsed="true">
+    <Position X="6.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="PWAVEFORMATEX" Collapsed="true">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPWAVEFORMATEX" Collapsed="true">
+    <Position X="3.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="LPCWAVEFORMATEX" Collapsed="true">
+    <Position X="6.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_CHORUS" Collapsed="true">
+    <Position X="18.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_COMPRESSOR" Collapsed="true">
+    <Position X="7.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_DISTORTION" Collapsed="true">
+    <Position X="14.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_ECHO" Collapsed="true">
+    <Position X="14.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_FLANGER" Collapsed="true">
+    <Position X="14.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_GARGLE" Collapsed="true">
+    <Position X="3.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_I3DL2REVERB" Collapsed="true">
+    <Position X="10.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_PARAMEQ" Collapsed="true">
+    <Position X="11.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="BASS_DX8_REVERB" Collapsed="true">
+    <Position X="10.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="IOSNOTIFYPROC" Collapsed="true">
+    <Position X="26" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="__unnamed_enum_0004_8" Collapsed="true">
+    <Position X="34" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAhWEQkBJAAAAWAACAAgEAAACAEAAABADAACg=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_0004_16" Collapsed="true">
+    <Position X="34" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAJAAAABAAAAgAAAAAAAMAAAIABgAAAAAAAAAAAAA=</HashCode>
+      <FileName>bass.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
