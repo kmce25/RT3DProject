@@ -1,10 +1,3 @@
-// Based loosly on the first triangle OpenGL tutorial
-// http://www.opengl.org/wiki/Tutorial:_OpenGL_3.1_The_First_Triangle_%28C%2B%2B/Win%29
-// This program will render two triangles
-// Most of the OpenGL code for dealing with buffer objects, etc has been moved to a 
-// utility library, to make creation and display of mesh objects as simple as possible
-
-// Windows specific: Uncomment the following line to open a console window for debug output
 #if _DEBUG
 #pragma comment(linker, "/subsystem:\"console\" /entry:\"WinMainCRTStartup\"")
 #endif
@@ -58,7 +51,7 @@ GLuint md2VertCount16 = 0;
 GLuint md2VertCount17 = 0;
 GLuint md2VertCount18 = 0;
 GLuint md2VertCount19 = 0;
-
+GLuint md2VertCount20 = 0;
 
 GLuint meshObjects[15];
 GLuint shaderProgram;
@@ -90,11 +83,10 @@ md2model building17Model;
 md2model rock;
 md2model rock2;
 md2model bush;
-
-
+md2model treeModel;
 
 /// TEXTURES & MATERIALS ///
-GLuint textures[17];
+GLuint textures[20];
 
 rt3d::materialStruct material0 = {
 	{ 0.2f, 0.4f, 0.2f, 1.0f }, // ambient
@@ -102,6 +94,7 @@ rt3d::materialStruct material0 = {
 	{ 0.0f, 0.1f, 0.0f, 1.0f }, // specular
 	2.0f  // shininess
 };
+
 rt3d::materialStruct material1 = {
 	{ 0.4f, 0.4f, 1.0f, 1.0f }, // ambient
 	{ 0.8f, 0.8f, 1.0f, 1.0f }, // diffuse
@@ -111,8 +104,8 @@ rt3d::materialStruct material1 = {
 
 
 /// PLAYER CHARACTER ///
-glm::vec3 playerCarPos(0, 0.0f, 0);
-int currentAnim = 0; //Starts Standing
+glm::vec3 playerCarPos(-10, 0.0f, 0);
+int currentAnim = 0; 
 GLfloat playerRotation = 90.0f;
 
 /// PLAYER CAMERA ///
@@ -144,7 +137,7 @@ glm::vec4 lightPos(0, 1.0f, 0, 1.0f); //light position
 /// Set up rendering context ///
 SDL_Window * setupRC(SDL_GLContext &context) {
 	SDL_Window * window;
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) // Initialize video
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)											// Initialize video
         rt3d::exitFatalError("Unable to initialize SDL"); 
 	  
     // Request an OpenGL 3.0 context.
@@ -153,26 +146,26 @@ SDL_Window * setupRC(SDL_GLContext &context) {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); 
 
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);  // double buffering on
-	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8); // 8 bit alpha buffering
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);								// double buffering on
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);									// 8 bit alpha buffering
 	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4); // Turn on x4 multisampling anti-aliasing (MSAA)
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);							// Turn on x4 multisampling anti-aliasing (MSAA)
  
     // Create a window with the prescribed dimensions
     window = SDL_CreateWindow("SDL/GLM/OpenGL Demo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         windowWidth, windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
-	if (!window) // Check window was created OK
+	if (!window)																// Check window was created OK
         rt3d::exitFatalError("Unable to create window");
  
-    context = SDL_GL_CreateContext(window); // Create opengl context and attach to window
-    SDL_GL_SetSwapInterval(1); // set swap buffers to sync with monitor's vertical refresh rate
+    context = SDL_GL_CreateContext(window);										// Create opengl context and attach to window
+    SDL_GL_SetSwapInterval(1);													// set swap buffers to sync with monitor's vertical refresh rate
 	return window;
 }
 
 /// Texture loading function ///
 GLuint loadBitmap(char *fname) {
 	GLuint texID;
-	glGenTextures(1, &texID); // generate texture ID
+	glGenTextures(1, &texID);													// generate texture ID
 
 	// load file - using core SDL library
  	SDL_Surface *tmpSurface;
@@ -204,8 +197,8 @@ GLuint loadBitmap(char *fname) {
 		externalFormat, GL_UNSIGNED_BYTE, tmpSurface->pixels);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	SDL_FreeSurface(tmpSurface); // texture loaded, free the temporary buffer
-	return texID;	// return value of texture ID
+	SDL_FreeSurface(tmpSurface);													// texture loaded, free the temporary buffer
+	return texID;																	// return value of texture ID
 }
 
 unsigned int loadCubemap(vector<std::string> faces)
@@ -235,7 +228,7 @@ unsigned int loadCubemap(vector<std::string> faces)
 		}
 
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat, tmpSurface->w, tmpSurface->h, 0, externalFormat, GL_UNSIGNED_BYTE, tmpSurface->pixels);
-		SDL_FreeSurface(tmpSurface); // texture loaded, free the temporary buffer
+		SDL_FreeSurface(tmpSurface);												// texture loaded, free the temporary buffer
 
 	}
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -247,11 +240,9 @@ unsigned int loadCubemap(vector<std::string> faces)
 	return textureID;
 }
 
-
-
 /// INITIALISE ///
 void init(void) {
-	// For this simple example we'll be using the most basic of shader programs
+	
 	shaderProgram = rt3d::initShaders("phong-tex.vert","phong-tex.frag");
 	shaderSkybox = rt3d::initShaders("skybox.vert", "skybox.frag");
 
@@ -269,7 +260,7 @@ void init(void) {
 	textures[0] = loadBitmap("fabric.bmp");
 	meshObjects[0] = rt3d::createMesh(verts.size()/3, verts.data(), nullptr, norms.data(), tex_coords.data(), size, indices.data());
 
-	//////////skybox
+	///SKYBOX
 	glUseProgram(shaderSkybox);
 	// skybox VAO
 	unsigned int skyboxVAO, skyboxVBO;
@@ -277,8 +268,8 @@ void init(void) {
 	glGenBuffers(1, &skyboxVBO);
 	glBindVertexArray(skyboxVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
-	glBufferData(GL_ARRAY_BUFFER, 3 * 3 * 2 * 6 * sizeof(GLfloat), &SkyBoxVertices, GL_STATIC_DRAW); // 3 coords, 3 verts, 2 tris per face, 6 faces
-	glVertexAttribPointer((GLuint)RT3D_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, 0); // make sure that the position in the shade is called in_Position
+	glBufferData(GL_ARRAY_BUFFER, 3 * 3 * 2 * 6 * sizeof(GLfloat), &SkyBoxVertices, GL_STATIC_DRAW);	// 3 coords, 3 verts, 2 tris per face, 6 faces
+	glVertexAttribPointer((GLuint)RT3D_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, 0);							// make sure that the position in the shade is called in_Position
 	glEnableVertexAttribArray(0);
 	meshObjects[3] = skyboxVAO;
 
@@ -293,7 +284,7 @@ void init(void) {
 		std::string("./resources/textures/skybox/back.bmp")
 	};
 	cubemapTexture = loadCubemap(faces);
-	////
+	///SKYBOX END
 
 
 
@@ -302,7 +293,7 @@ void init(void) {
 	textures[1] = loadBitmap("Car.bmp");
 	meshObjects[1] = carModel.ReadMD2Model("CarModel.MD2");
 	md2VertCount1= carModel.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(5.0f, 0.0f, -5.0f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(180.0f, 0.0f, 0.0f), textures[1], meshObjects[1], md2VertCount1, material1, true, true));
+	entities.push_back(Entity(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(180.0f, 0.0f, 0.0f), textures[1], meshObjects[1], md2VertCount1, material1, true, true));
 
 	textures[2] = loadBitmap("hobGoblin2.bmp");
 	meshObjects[2] = goblinModel.ReadMD2Model("tris.MD2");
@@ -315,51 +306,73 @@ void init(void) {
 	entities.push_back(Entity(glm::vec3(-28.0f, 0.0f, 22.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
 	entities.push_back(Entity(glm::vec3(20.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
 	entities.push_back(Entity(glm::vec3(10.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-18.0f, 0.0f, 9.0f), glm::vec3(1.2f, 1.0f, 1.0f), glm::vec3(0.0f, 90.0f, 0.0f), textures[4], meshObjects[4], md2VertCount4, material1, true, false));
 
-	textures[7] = loadBitmap("./Resources/textures/Building/Building3Texture.bmp");
-	meshObjects[7] = building2Model.ReadMD2Model("./Resources/md2models/Buildings/Building.MD2");
-	md2VertCount7 = building2Model.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(-20.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
-	entities.push_back(Entity(glm::vec3(0.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
-	entities.push_back(Entity(glm::vec3(10.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
+	textures[5] = loadBitmap("./Resources/textures/Building/Building3Texture.bmp");
+	meshObjects[5] = building2Model.ReadMD2Model("./Resources/md2models/Buildings/Building.MD2");
+	md2VertCount5 = building2Model.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(-20.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[5], meshObjects[5], md2VertCount5, material1, true, false));
+	entities.push_back(Entity(glm::vec3(0.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[5], meshObjects[5], md2VertCount5, material1, true, false));
+	entities.push_back(Entity(glm::vec3(10.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[5], meshObjects[5], md2VertCount5, material1, true, false));
 
-	textures[8] = loadBitmap("./Resources/textures/Building/BuildingCatTexture.bmp");
-	meshObjects[8] = building2Model.ReadMD2Model("./Resources/md2models/Buildings/Building.MD2");
-	md2VertCount8 = building2Model.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(-10.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
-	entities.push_back(Entity(glm::vec3(0.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
-	entities.push_back(Entity(glm::vec3(20.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
+	textures[6] = loadBitmap("./Resources/textures/Building/BuildingCatTexture.bmp");
+	meshObjects[6] = building2Model.ReadMD2Model("./Resources/md2models/Buildings/Building.MD2");
+	md2VertCount6 = building2Model.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(-10.0f, 0.0f, 30.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[6], meshObjects[6], md2VertCount6, material1, true, false));
+	entities.push_back(Entity(glm::vec3(0.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[6], meshObjects[6], md2VertCount6, material1, true, false));
+	entities.push_back(Entity(glm::vec3(20.0f, 0.0f, 14.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 180.0f, 0.0f), textures[6], meshObjects[6], md2VertCount6, material1, true, false));
 
-	textures[16] = loadBitmap("./Resources/textures/Scenery/RockTexture.bmp");
-	meshObjects[16] = roadModel.ReadMD2Model("./Resources/md2models/Road.MD2");
-	md2VertCount16 = roadModel.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(0.0f, -0.075, 22.0f), glm::vec3(10.0f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[16], meshObjects[16], md2VertCount16, material1, true, false));
+	textures[7] = loadBitmap("./Resources/textures/Road/RoadTexture2.bmp");
+	meshObjects[7] = roadModel.ReadMD2Model("./Resources/md2models/Road.MD2");
+	md2VertCount7 = roadModel.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(0.0f, -0.075, 22.0f), glm::vec3(10.0f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[7], meshObjects[7], md2VertCount7, material1, true, false));
 
-	textures[17] = loadBitmap("./Resources/textures/Scenery/RockTexture.bmp");
-	meshObjects[17] = roadModel2.ReadMD2Model("./Resources/md2models/Road.MD2");
-	md2VertCount17 = roadModel2.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(-10.0f, -0.075, 10.0f), glm::vec3(2.0f, 1.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[17], meshObjects[17], md2VertCount17, material1, true, false));
+	textures[8] = loadBitmap("./Resources/textures/Road/RoadTexture2.bmp");
+	meshObjects[8] = roadModel2.ReadMD2Model("./Resources/md2models/Road.MD2");
+	md2VertCount8 = roadModel2.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(-10.0f, -0.075, 10.0f), glm::vec3(2.0f, 1.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-10.0f, -0.075, 0.0f), glm::vec3(2.8f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[8], meshObjects[8], md2VertCount8, material1, true, false));
 
-	/*textures[18] = loadBitmap("./Resources/textures/Scenery/Rock.bmp");
-	meshObjects[18] = rock2.ReadMD2Model("./Resources/md2models/scenery/Rock2.MD2");
-	md2VertCount18 = rock2.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(-23.0, 0.5, 16.5f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[18], meshObjects[18], md2VertCount18, material1, true, false));
-*/
-	textures[19] = loadBitmap("./Resources/textures/Scenery/BushTexture.bmp");
-	meshObjects[19] = bush.ReadMD2Model("./Resources/md2models/scenery/Bush.MD2");
-	md2VertCount19 = bush.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(25.3, 0.0, 26.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(25.3, 0.0, 24.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(25.3, 0.0, 22.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(25.3, 0.0, 20.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(25.3, 0.0, 18.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(-25.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(-23.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(-21.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 40.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(-19.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(10.0f, 30.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(-17.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 90.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
-	entities.push_back(Entity(glm::vec3(-15.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 90.0f, 0.0f), textures[19], meshObjects[19], md2VertCount19, material1, true, false));
+	textures[9] = loadBitmap("./Resources/textures/Scenery/Rock.bmp");
+	meshObjects[9] = rock2.ReadMD2Model("./Resources/md2models/scenery/Rock2.MD2");
+	md2VertCount9 = rock2.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(-23.0, 0.0, 16.5f), glm::vec3(0.8f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 0.0f), textures[9], meshObjects[9], md2VertCount9, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-19.0, 0.0, 16.5f), glm::vec3(0.5f, 0.4f, 0.2f), glm::vec3(30.0f, 0.0f, 10.0f), textures[9], meshObjects[9], md2VertCount9, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-15.5, 0.0, 16.5f), glm::vec3(0.4f, 0.7f, 0.4f), glm::vec3(20.0f, 10.0f, 30.0f), textures[9], meshObjects[9], md2VertCount9, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-4.0f, 0.0f, 3.5f), glm::vec3(0.5f, 0.7f, 0.5f), glm::vec3(20.0f, 10.0f, 30.0f), textures[9], meshObjects[9], md2VertCount9, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-2.5f, 0.0f, -0.5f), glm::vec3(0.5f, 0.7f, 0.5f), glm::vec3(20.0f, 10.0f, 30.0f), textures[9], meshObjects[9], md2VertCount9, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-17.4f, 0.0f, 0.0f), glm::vec3(0.5f, 0.7f, 2.5f), glm::vec3(0.0f, 0.0f, 0.0f), textures[9], meshObjects[9], md2VertCount9, material1, true, false));
 
+	textures[10] = loadBitmap("./Resources/textures/Scenery/BushTexture.bmp");
+	meshObjects[10] = bush.ReadMD2Model("./Resources/md2models/scenery/Bush.MD2");
+	md2VertCount10 = bush.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 26.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 24.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 22.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 20.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(25.3, 0.0, 18.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-25.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 0.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-21.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 40.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-17.0, 0.0, 16.5f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 90.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));	
+	entities.push_back(Entity(glm::vec3(-14.5f, 0.0f, -3.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 30.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-11.5f, 0.0f, -3.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 90.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-8.5f, 0.0f, -3.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 60.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-5.5f, 0.0f, -3.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 10.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-2.5f, 0.0f, 2.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 10.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-2.5f, 0.0f, -3.0f), glm::vec3(0.20f, 0.20f, 0.20f), glm::vec3(0.0f, 10.0f, 0.0f), textures[10], meshObjects[10], md2VertCount10, material1, true, false));
+
+    textures[11] = loadBitmap("./Resources/textures/Scenery/Tree.bmp");
+	meshObjects[11] = treeModel.ReadMD2Model("./Resources/md2models/scenery/Tree.MD2");
+	md2VertCount11 = treeModel.getVertDataCount();	
+	entities.push_back(Entity(glm::vec3(-16.0f, 0.0f, -3.0f), glm::vec3(0.3f, 0.45f, 0.5f), glm::vec3(0.0f, 0.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-13.0f, 0.0f, -3.0f), glm::vec3(0.5f, 0.51f, 0.5f), glm::vec3(0.0f, 120.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-10.0f, 0.0f, -3.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 40.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-7.0f, 0.0f, -3.0f), glm::vec3(0.4f, 0.49f, 0.5f), glm::vec3(0.0f, 70.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-4.0f, 0.0f, -3.0f), glm::vec3(0.5f, 0.54f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-4.0f, 0.0f, 5.0f), glm::vec3(0.5f, 0.54f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-2.5f, 0.0f, 1.0f), glm::vec3(0.5f, 0.54f, 0.3f), glm::vec3(0.0f, 90.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	entities.push_back(Entity(glm::vec3(-2.5f, 0.0f, -2.0f), glm::vec3(0.5f, 0.54f, 0.3f), glm::vec3(0.0f, 50.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
+	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -393,45 +406,28 @@ void update(void) {
 
 	if (noClipMode) // How the camera controls when detached from the player characer
 	{
-		if (keys[SDL_SCANCODE_W]) { eye = moveForward(eye, cameraRotation, 0.3f); ; } //Move forward
-		if (keys[SDL_SCANCODE_S]) { eye = moveForward(eye, cameraRotation, -0.3f); } //Move back
-		if (keys[SDL_SCANCODE_A]) { cameraRotation -= 1.4f; } //Rotate left 
-		if (keys[SDL_SCANCODE_D]) { cameraRotation += 1.4f; } //Rotate right
-		if (keys[SDL_SCANCODE_Q]) { eye.y += 0.13f; } //Move up
-		if (keys[SDL_SCANCODE_E]) { eye.y -= 0.13f; } //Move down
+		if (keys[SDL_SCANCODE_W]) { eye = moveForward(eye, cameraRotation, 0.3f); ; }	//Move forward
+		if (keys[SDL_SCANCODE_S]) { eye = moveForward(eye, cameraRotation, -0.3f); }	//Move back
+		if (keys[SDL_SCANCODE_A]) { cameraRotation -= 1.4f; }							//Rotate left 
+		if (keys[SDL_SCANCODE_D]) { cameraRotation += 1.4f; }							//Rotate right
+		if (keys[SDL_SCANCODE_Q]) { eye.y += 0.13f; }									//Move up
+		if (keys[SDL_SCANCODE_E]) { eye.y -= 0.13f; }									//Move down
 		if (keys[SDL_SCANCODE_R] && cameraAlternatable==true) {  noClipMode = false; eye = eyeReturn; cameraRotation = cameraRotationReturn; cameraAlternatable = false;  } //Disable NoClip mode, return to following the player character
 		if (!keys[SDL_SCANCODE_R]) { cameraAlternatable = true; }
 	}
 	else // How the camera and player control when the camera follows the player characer
 	{
 		if (keys[SDL_SCANCODE_W]) { playerCarPos = moveForward(playerCarPos, cameraRotation, 0.1f);eye = moveForward(eye, cameraRotation, 0.1f); currentAnim = 1; }//Move forward
-		if (!keys[SDL_SCANCODE_W]) { if (currentAnim = 1) { currentAnim = 0; } }//Not moving forward, use resting animation
+		if (!keys[SDL_SCANCODE_W]) { if (currentAnim = 1) { currentAnim = 0; } }		//Not moving forward, use resting animation
 		if (keys[SDL_SCANCODE_S]) { playerCarPos = moveForward(playerCarPos, cameraRotation, -0.05f);eye = moveForward(eye, cameraRotation, -0.05f); }//Move back
-		if (keys[SDL_SCANCODE_A]) { rotateCameraAroundPlayer(-1.5f) ;	} //Rotate left 
-		if (keys[SDL_SCANCODE_D]) { rotateCameraAroundPlayer(1.5f); } //Rotate right
+		if (keys[SDL_SCANCODE_A]) { rotateCameraAroundPlayer(-1.5f) ;	}				//Rotate left 
+		if (keys[SDL_SCANCODE_D]) { rotateCameraAroundPlayer(1.5f); }					//Rotate right
 		if (keys[SDL_SCANCODE_R] && cameraAlternatable == true) { eyeReturn = eye; cameraRotationReturn = cameraRotation; noClipMode = true;  cameraAlternatable = false; currentAnim = 0;	} //Ename NoClip mode, begin moving independantly of the player character
 		if (!keys[SDL_SCANCODE_R]) { cameraAlternatable = true; }
-		playerRotation = cameraRotation; //Rotate the player character with the camera
+		playerRotation = cameraRotation;												//Rotate the player character with the camera
 		//Miniat = glm::vec3(playerCarPos.x, playerCarPos.y, playerCarPos.z);
 	}
-
-	/// Audio Control ///
-	if (keys[SDL_SCANCODE_1]) {
-		BASS_Pause();
-	}
-
-	if (keys[SDL_SCANCODE_2]) {
-		BASS_Start();
-	}
-
-	if (keys[SDL_SCANCODE_3])
-	{
-		Audio::LoadSample("Audio/CarAudio.wav");
-	}
-
-	
-
-	Minieye = glm::vec3(playerCarPos.x, playerCarPos.y + 10.0f, playerCarPos.z); //Centre the minimap camera above the player character
+	Minieye = glm::vec3(playerCarPos.x, playerCarPos.y + 10.0f, playerCarPos.z);		//Centre the minimap camera above the player character
 
 	for (int it = 0; it < entities.size(); it++)
 	{
@@ -442,25 +438,14 @@ void update(void) {
 		}
 	}
 }
-
-
-void drawMainContents(SDL_Window * window, GLfloat scale) {
-/* Draw a cube for ground plane
-glBindTexture(GL_TEXTURE_2D, textures[0]);
-mvStack.push(mvStack.top());
-mvStack.top() = glm::translate(mvStack.top(), glm::vec3(0.0f, -0.1f, 0.0f));
-mvStack.top() = glm::scale(mvStack.top(), glm::vec3(20.0f, 0.1f, 20.0f));
-rt3d::setUniformMatrix4fv(shaderProgram, "modelview", glm::value_ptr(mvStack.top()));
-rt3d::setMaterial(shaderProgram, material0);
-rt3d::drawIndexedMesh(meshObjects[0], meshIndexCount, GL_TRIANGLES);
-mvStack.pop();*/
-
-
+void AI()
+{
 
 
 }
 
-void draw(SDL_Window * window) {
+void draw(SDL_Window * window)
+{
 	/// Set-up the screen ///
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.5f,0.5f,0.5f,1.0f);
@@ -470,45 +455,45 @@ void draw(SDL_Window * window) {
 	projection = glm::perspective(float(60.0f*DEG_TO_RADIAN),windowWidth/windowHeight,1.0f,80.0f);
 	rt3d::setUniformMatrix4fv(shaderProgram, "projection", glm::value_ptr(projection));
 
-	GLfloat scale(1.0f); // Allow easy scaling of complete scene
-	
-	glm::mat4 modelview(1.0); // Set base position for scene
+	GLfloat scale(1.0f);						// Allow easy scaling of complete scene	
+	glm::mat4 modelview(1.0);					// Set base position for scene
 	mvStack.push(modelview);
 
 	at = moveForward(eye, cameraRotation,1.0f);
 	mvStack.top() = glm::lookAt(eye,at,up);
 
-	/// Skybox ///
-	glDisable(GL_CULL_FACE); // Disable culling and depth test
+	/// SKYBOX ///
+	glDisable(GL_CULL_FACE);					
 	glDisable(GL_DEPTH_TEST);
 	glUseProgram(shaderSkybox);
 
 	/// Set view and projection matrix ///
 	glm::mat4 projection_skybox = glm::perspective(float(45.0f*DEG_TO_RADIAN), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
-	rt3d::setUniformMatrix4fv(shaderSkybox, "projection", glm::value_ptr(projection_skybox)); // JR note this is a 45 degree projection because we are looking at the face of a cube
+	rt3d::setUniformMatrix4fv(shaderSkybox, "projection", glm::value_ptr(projection_skybox)); 
 	glm::mat3 mvRotOnlyMat3 = glm::mat3(mvStack.top());
-	mvStack.push(glm::mat4(mvRotOnlyMat3)); // only use the rotational part, i.e. upper 3x3
+	mvStack.push(glm::mat4(mvRotOnlyMat3));
 	rt3d::setUniformMatrix4fv(shaderSkybox, "modelview", glm::value_ptr(mvStack.top()));
 	mvStack.pop();
 
-	glBindVertexArray(meshObjects[3]); //bind the VAO
-	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture); // bind the cubemap
-	glDrawArrays(GL_TRIANGLES, 0, 36); // draw
-	glBindVertexArray(0); // unbind the VAO (by binding to zero)
+	glBindVertexArray(meshObjects[3]);			
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture); 
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0); 
 
-	glEnable(GL_CULL_FACE); // Enable culling and depth test to draw rest of scene
+	glEnable(GL_CULL_FACE); 
 	glEnable(GL_DEPTH_TEST);
 
 	glUseProgram(shaderProgram);
 	rt3d::setUniformMatrix4fv(shaderProgram, "projection", glm::value_ptr(projection));
 
-	glm::vec4 playerCarLightPos(playerCarPos.x, playerCarPos.y + 1.0, playerCarPos.z, 1.0f);
-	playerCarLightPos = playerCarLightPos*mvStack.top();
+
+	glm::vec4 playerCarLightPos(playerCarPos.x, playerCarPos.y + 3.0, playerCarPos.z, 0.0f);
+	playerCarLightPos = playerCarLightPos *mvStack.top() * projection;
+	/*playerCarLightPos = playerCarLightPos * modelview * projection;*/
+	/*playerCarLightPos /= playerCarLightPos.w;*/
 	rt3d::setLightPos(shaderProgram, glm::value_ptr(playerCarLightPos));
 
-
-
-	glDepthMask(GL_TRUE); // make sure depth test is on
+	glDepthMask(GL_TRUE); 
 						  
 	// Animate the md2 model, and update the mesh with new vertex data
 	goblinModel.Animate(currentAnim, 0.1f);
@@ -534,28 +519,18 @@ void draw(SDL_Window * window) {
 
 
 	glViewport(0, windowHeight - (windowHeight / 4), windowWidth / 4, windowHeight / 4);
-	////////
 	glEnable(GL_CULL_FACE);
 	glClearColor(0.5f,0.5f,0.5f,1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT  | GL_DEPTH_BUFFER_BIT);
-
-	//glm::mat4 projection(1.0);
 	projection = glm::perspective(float(60.0f*DEG_TO_RADIAN),windowWidth/windowHeight,1.0f,50.0f);
 	rt3d::setUniformMatrix4fv(shaderProgram, "projection", glm::value_ptr(projection));
 
-	//GLfloat scale(1.0f); // Allow easy scaling of complete scene
 	
-	//glm::mat4 modelview(1.0); // Set base position for scene
 	mvStack.push(modelview);
-
 	Miniat = moveForward(playerCarPos, playerRotation,1.0f);
-	//mvStack.top() = glm::lookAt(Minieye, Miniat,up
 	mvStack.top() = glm::lookAt(Minieye, Miniat,up);
-	////////
-
-
-
+	
 	/// DRAW MINIMAP VIEW ///
+	glClear(GL_DEPTH_BUFFER_BIT);									// Clears depth buffer to keep mini map above scene geometry 
 	for (int it = 0; it < entities.size(); it++)
 	{
 		entities[it].Draw(mvStack, projection, shaderProgram, playerRotation);
@@ -567,18 +542,19 @@ void draw(SDL_Window * window) {
 	mvStack.pop(); // Initial matrix
 	glDepthMask(GL_TRUE);
 
-    SDL_GL_SwapWindow(window); // Swap buffers
+    SDL_GL_SwapWindow(window); 
 }
 
 
 int main(int argc, char *argv[]) {
-    SDL_Window * hWindow; // Window handle
-    SDL_GLContext glContext; // OpenGL context handle
-    hWindow = setupRC(glContext); // Create window and render context 
+    SDL_Window * hWindow; 
+    SDL_GLContext glContext; 
+    hWindow = setupRC(glContext); 
 
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
-	if (GLEW_OK != err) { // GlewInit failed, something is seriously wrong
+	if (GLEW_OK != err) 
+	{ 
 		std::cout << "glewInit failed, aborting." << endl;
 		exit (1);
 	}
@@ -586,15 +562,17 @@ int main(int argc, char *argv[]) {
 
 	init();
 	Audio::LoadSample("Audio/GTARadio.wav");
-	bool running = true; // Set running to true
-	SDL_Event sdlEvent;  // Variable to detect SDL events
-	while (running)	{	// The event loop
-		while (SDL_PollEvent(&sdlEvent)) {
+	bool running = true;
+	SDL_Event sdlEvent; 
+	while (running)
+	{	
+		while (SDL_PollEvent(&sdlEvent)) 
+		{
 			if (sdlEvent.type == SDL_QUIT)
 				running = false;
 		}
 		update();
-		draw(hWindow); // Call the draw function
+		draw(hWindow); 
 	}
 
     SDL_GL_DeleteContext(glContext);
