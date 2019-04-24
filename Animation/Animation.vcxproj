@@ -98,6 +98,7 @@
     <ClInclude Include="rt3dObjLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="phong-tex.frag" />
     <None Include="phong-tex.vert" />
     <None Include="skybox.frag" />

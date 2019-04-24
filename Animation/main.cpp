@@ -29,7 +29,7 @@ glm::vec3 SkyBoxVertices[36] =
 };
 unsigned int cubemapTexture;
 GLuint shaderSkybox;
-
+bool MAX = false;
 
 /// GLOBALS ///
 GLuint meshIndexCount = 0;
@@ -59,6 +59,7 @@ std::vector<Entity> entities;
 float windowWidth = 800.0f, windowHeight = 600.0f;
 
 /// MD2 ///
+md2model groundModel;
 md2model carModel;
 md2model roadModel;
 md2model roadModel2;
@@ -108,6 +109,10 @@ glm::vec3 playerCarPos(-10, 0.0f, 0);
 int currentAnim = 0; 
 GLfloat playerRotation = 90.0f;
 
+///GOBLIN///
+glm::vec3 hobgoblinPos(-10.0f, 1.0f, 0.0f);
+
+
 /// PLAYER CAMERA ///
 glm::vec3 eye(playerCarPos.x-5.0f, playerCarPos.y+1.5f, playerCarPos.z);
 glm::vec3 at(0.0f, 0.0f, 0.0f);
@@ -125,12 +130,12 @@ glm::vec3 Miniat(playerCarPos.x, playerCarPos.y, playerCarPos.z);
 glm::vec3 Miniup(0.5f, 0.0f, 0.0f);
 
 rt3d::lightStruct light0 = {
-	{0.1f, 0.1f, 0.1f, 1.0f}, // ambient
+	{0.0f, 0.0f, 0.0f, 1.0f}, // ambient
 	{1.0f, 1.0f, 1.0f, 1.0f}, // diffuse
 	{1.0f, 1.0f, 1.0f, 1.0f}, // specular
 	{0.0f, 0.0f, 0.0f, 1.0f}  // position
 };
-glm::vec4 lightPos(0, 1.0f, 0, 1.0f); //light position
+glm::vec4 lightPos(-15.0f, 20.0, 0, 1.0f); //light position
 
 
 
@@ -286,19 +291,20 @@ void init(void) {
 	cubemapTexture = loadCubemap(faces);
 	///SKYBOX END
 
-
-
-	entities.push_back(Entity(glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[0], meshObjects[0], meshIndexCount, material0, false, false));
+	textures[12] = loadBitmap("./Resources/textures/Scenery/GroundPlanetex.bmp");
+	meshObjects[12] = groundModel.ReadMD2Model("./Resources/md2models/Groundplane.MD2");
+	md2VertCount12 = groundModel.getVertDataCount();
+	entities.push_back(Entity(glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(300.0f, 1.0f,300.0f), glm::vec3(0.0f, 0.0f, 0.0f), textures[12], meshObjects[12], meshIndexCount, material1, false, false));
 
 	textures[1] = loadBitmap("Car.bmp");
 	meshObjects[1] = carModel.ReadMD2Model("CarModel.MD2");
-	md2VertCount1= carModel.getVertDataCount();
+	md2VertCount1 = carModel.getVertDataCount();
 	entities.push_back(Entity(glm::vec3(-10.0f, 0.0f, 0.0f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(180.0f, 0.0f, 0.0f), textures[1], meshObjects[1], md2VertCount1, material1, true, true));
 
 	textures[2] = loadBitmap("hobGoblin2.bmp");
 	meshObjects[2] = goblinModel.ReadMD2Model("tris.MD2");
 	md2VertCount2 = goblinModel.getVertDataCount();
-	entities.push_back(Entity(glm::vec3(5.0f, 1.2f, -5.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(90.0f, 0.0f, 0.0f), textures[2], meshObjects[2], md2VertCount2, material1, true, false));
+	entities.push_back(Entity(glm::vec3(hobgoblinPos.x, hobgoblinPos.y, hobgoblinPos.z), glm::vec3(0.03f, 0.03f, 0.03f), glm::vec3(90.0f, 0.0f, 0.0f), textures[2], meshObjects[2], md2VertCount2, material1, true, false));
 	
 	textures[4] = loadBitmap("./Resources/textures/Building/Building1Texture1.bmp");
 	meshObjects[4] = building1Model.ReadMD2Model("./Resources/md2models/Buildings/SmallBuilding.MD2");
@@ -372,7 +378,7 @@ void init(void) {
 	entities.push_back(Entity(glm::vec3(-4.0f, 0.0f, 5.0f), glm::vec3(0.5f, 0.54f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
 	entities.push_back(Entity(glm::vec3(-2.5f, 0.0f, 1.0f), glm::vec3(0.5f, 0.54f, 0.3f), glm::vec3(0.0f, 90.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
 	entities.push_back(Entity(glm::vec3(-2.5f, 0.0f, -2.0f), glm::vec3(0.5f, 0.54f, 0.3f), glm::vec3(0.0f, 50.0f, 0.0f), textures[11], meshObjects[11], md2VertCount11, material1, true, false));
-	
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -401,8 +407,51 @@ void rotateCameraAroundPlayer(float angle) {
 	eye.z = (newZ + playerCarPos.z);
 }
 
-void update(void) {
+void update(void) 
+{
 	const	Uint8 *keys = SDL_GetKeyboardState(NULL);
+	
+	if (light0.ambient[0] >= 0.6f)
+	{
+		MAX = true;
+	}
+	if (light0.ambient[0] <= 0.01f)
+	{
+		MAX = false;
+	}
+
+	if (MAX == true)
+	{
+		light0.ambient[0] -= 0.005f;
+		light0.ambient[1] -= 0.005f;
+		light0.ambient[2] -= 0.005f;
+	}
+
+	if (MAX == false)
+	{
+		light0.ambient[0] += 0.005f;
+		light0.ambient[1] += 0.005f;
+		light0.ambient[2] += 0.005f;
+	}
+		
+	if (keys[SDL_SCANCODE_N]) light0.ambient[0] += 0.1f;
+	if (light0.ambient[0] >= 1.0f)
+	{
+		light0.ambient[0] = 0;
+	}
+
+	if (keys[SDL_SCANCODE_G]) light0.ambient[1] += 0.1f;
+	if (light0.ambient[0] >= 1.0f)
+	{
+		light0.ambient[0] = 0;
+	}
+
+	if (keys[SDL_SCANCODE_B]) light0.ambient[2] += 0.1f;
+	if (light0.ambient[0] >= 1.0f)
+	{
+		light0.ambient[0] = 0;
+	}
+
 
 	if (noClipMode) // How the camera controls when detached from the player characer
 	{
@@ -424,8 +473,7 @@ void update(void) {
 		if (keys[SDL_SCANCODE_D]) { rotateCameraAroundPlayer(1.5f); }					//Rotate right
 		if (keys[SDL_SCANCODE_R] && cameraAlternatable == true) { eyeReturn = eye; cameraRotationReturn = cameraRotation; noClipMode = true;  cameraAlternatable = false; currentAnim = 0;	} //Ename NoClip mode, begin moving independantly of the player character
 		if (!keys[SDL_SCANCODE_R]) { cameraAlternatable = true; }
-		playerRotation = cameraRotation;												//Rotate the player character with the camera
-		//Miniat = glm::vec3(playerCarPos.x, playerCarPos.y, playerCarPos.z);
+		playerRotation = cameraRotation;												//Rotate the player character with the camera		
 	}
 	Minieye = glm::vec3(playerCarPos.x, playerCarPos.y + 10.0f, playerCarPos.z);		//Centre the minimap camera above the player character
 
@@ -433,15 +481,10 @@ void update(void) {
 	{
 		if (entities[it].getIsPlayer())
 		{
-			entities[it].updatePosition(glm::vec3(playerCarPos.x, playerCarPos.y, playerCarPos.z));
-			entities[it].updateRotation(-playerRotation);
-		}
+			entities[it].updatePosition(glm::vec3(playerCarPos.x, playerCarPos.y, playerCarPos.z));			
+			entities[it].updateRotation(-playerRotation);			
+		}		
 	}
-}
-void AI()
-{
-
-
 }
 
 void draw(SDL_Window * window)
@@ -486,12 +529,19 @@ void draw(SDL_Window * window)
 	glUseProgram(shaderProgram);
 	rt3d::setUniformMatrix4fv(shaderProgram, "projection", glm::value_ptr(projection));
 
+	       
+	//glm::vec4 playerCarLightPos(playerCarPos.x, playerCarPos.y + 3.0, playerCarPos.z, 0.0f);
+	//playerCarLightPos = playerCarLightPos *mvStack.top() /** projection*/;
+	///*playerCarLightPos = playerCarLightPos * modelview * projection;*/
+	///*playerCarLightPos /= playerCarLightPos.w;*/
+	//rt3d::setLightPos(shaderProgram, glm::value_ptr(playerCarLightPos));
 
-	glm::vec4 playerCarLightPos(playerCarPos.x, playerCarPos.y + 3.0, playerCarPos.z, 0.0f);
-	playerCarLightPos = playerCarLightPos *mvStack.top() * projection;
-	/*playerCarLightPos = playerCarLightPos * modelview * projection;*/
-	/*playerCarLightPos /= playerCarLightPos.w;*/
-	rt3d::setLightPos(shaderProgram, glm::value_ptr(playerCarLightPos));
+	rt3d::setLightPos(shaderProgram, light0.position);
+	rt3d::setLight(shaderProgram, light0);
+	//light0.ambient[0];					//Change colour of red
+	//light0.ambient[1];					//Green	
+	//light0.ambient[3];					//Blue
+
 
 	glDepthMask(GL_TRUE); 
 						  
@@ -505,18 +555,11 @@ void draw(SDL_Window * window)
 		entities[it].Draw(mvStack, projection, shaderProgram, playerRotation);
 	}
 
-	
-	//mvStack.top() = glm::lookAt(Minieye, Miniat, Miniup);
-	//mvStack.pop();
 	projection = glm::perspective(float(90.0f*DEG_TO_RADIAN), windowWidth / windowHeight, 1.0f, 50.0f);
 	rt3d::setUniformMatrix4fv(shaderProgram, "projection", glm::value_ptr(projection));
 
 	modelview=glm::mat4(1.0); // Set base position for scene
 	mvStack.push(modelview);
-
-	//mvStack.top() = glm::lookAt(Minieye, Miniat, Miniup);
-
-
 
 	glViewport(0, windowHeight - (windowHeight / 4), windowWidth / 4, windowHeight / 4);
 	glEnable(GL_CULL_FACE);
@@ -535,10 +578,7 @@ void draw(SDL_Window * window)
 	{
 		entities[it].Draw(mvStack, projection, shaderProgram, playerRotation);
 	}
-
-
 	glViewport(0, 0, windowWidth, windowHeight);
-
 	mvStack.pop(); // Initial matrix
 	glDepthMask(GL_TRUE);
 
